@@ -13,7 +13,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # The "Set up Python" step is removed
+      - name: List contents of configs directory
+        run: |
+         ls -la configs/
 
       - name: Install dependencies
         run: |
@@ -23,7 +25,9 @@ jobs:
         env:
           OCTODNS_CONFIG_PATH: ${{ github.workspace }}/config/production.yaml
         run: |
-          ~/dns/env/bin/octodns-sync --config=$OCTODNS_CONFIG_PATH
+          OCTODNS_CONFIG_PATH_ABSOLUTE="${{ github.workspace }}/configs/production.yaml"
+          ~/dns/env/bin/octodns-sync --config=$OCTODNS_CONFIG_PATH_ABSOLUTE
+
           # If you have additional arguments or configurations, include them as needed here
 
       - name: Diagnostic output
