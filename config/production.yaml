@@ -1,7 +1,7 @@
 providers:
   config:
     class: octodns.provider.yaml.YamlProvider
-    directory: ./  # The directory containing the zone YAML files
+    directory: OCTODNS_CONFIG_DIR
   powerdns:
     class: octodns.provider.powerdns.PowerDnsProvider
     host: localhost
