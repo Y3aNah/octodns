@@ -1,0 +1,20 @@
+providers:
+  config:
+    class: octodns.provider.yaml.YamlProvider
+    directory: ./  # The directory containing the zone YAML files
+  powerdns:
+    class: octodns.provider.powerdns.PowerDnsProvider
+    host: localhost
+    port: 8081
+    api_key: test123
+zones:
+  example.com.:
+    sources:
+      - config
+    targets:
+      - powerdns
+  dns.dmcp.:
+    sources:
+      - config
+    targets:
+      - powerdns
