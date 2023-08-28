@@ -13,24 +13,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: List contents of configs directory
+      - name: List contents of config directory
         run: |
-         ls -la configs/
+          ls -la config/
 
       - name: Install dependencies
         run: |
-          pip3 install -r requirements.txt  # using pip3 in case your system defaults pip to Python 2.x
-
-      - name: Run OctoDNS sync
-        env:
-          OCTODNS_CONFIG_PATH: ${{ github.workspace }}/config/production.yaml
-        run: |
-          OCTODNS_CONFIG_PATH_ABSOLUTE="${{ github.workspace }}/configs/production.yaml"
-          ~/dns/env/bin/octodns-sync --config=$OCTODNS_CONFIG_PATH_ABSOLUTE
-
-          # If you have additional arguments or configurations, include them as needed here
+          pip3 install -r requirements.txt
 
       - name: Diagnostic output
         run: |
           which python3
           which pip3
+
+      - name: Update OctoDNS config path
+        run: |
+          CONFIG_DIR="${{ github.workspace }}/config"  
+          sed -i "s|OCTODNS_CONFIG_DIR|$CONFIG_DIR|g" $CONFIG_DIR/production.yaml
+
+      - name: Run OctoDNS sync
+        run: |
+          OCTODNS_CONFIG_PATH_ABSOLUTE="${{ github.workspace }}/config/production.yaml"
+          ~/dns/env/bin/octodns-sync --config=$OCTODNS_CONFIG_PATH_ABSOLUTE
