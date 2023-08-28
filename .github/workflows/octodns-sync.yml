@@ -25,3 +25,8 @@ jobs:
       run: |
         octodns-sync --config=$OCTODNS_CONFIG_PATH
         # If you have additional arguments or configurations, include them as needed here
+
+    - name: Diagnostic output
+      run: |
+        which python3
+        which pip3
