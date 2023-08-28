@@ -1,0 +1,30 @@
+name: OctoDNS Sync
+
+on:
+  push:
+    paths:
+      - 'config/production.yaml'
+      - 'config/example.com.yaml'
+
+jobs:
+  octodns-sync:
+    runs-on: [self-hosted]
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # Ensure you're using a compatible version with OctoDNS
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run OctoDNS sync
+      env:
+        OCTODNS_CONFIG_PATH: ${{ github.workspace }}/config/production.yaml
+      run: |
+        octodns-sync --config=$OCTODNS_CONFIG_PATH
+        # If you have additional arguments or configurations, include them as needed
