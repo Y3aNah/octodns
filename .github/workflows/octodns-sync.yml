@@ -24,7 +24,7 @@ jobs:
 
     - name: Run OctoDNS sync
       env:
-        OCTODNS_CONFIG_PATH: https://github.com/Y3aNah/octodns/config/production.yaml
+        OCTODNS_CONFIG_PATH: ${{ github.workspace }}/config/production.yaml
       run: |
         octodns-sync --config=$OCTODNS_CONFIG_PATH
         # If you have additional arguments or configurations, include them as needed
