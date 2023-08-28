@@ -34,4 +34,4 @@ jobs:
       - name: Run OctoDNS sync
         run: |
           OCTODNS_CONFIG_PATH_ABSOLUTE="${{ github.workspace }}/config/production.yaml"
-          ~/dns/env/bin/octodns-sync --config=$OCTODNS_CONFIG_PATH_ABSOLUTE
+          ~/dns/env/bin/octodns-sync --config=$OCTODNS_CONFIG_PATH_ABSOLUTE --doit
