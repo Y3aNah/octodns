@@ -44,3 +44,8 @@ test4:
     type: A
     values:
       - 127.0.0.1
+test5:
+  - ttl: 3600
+    type: A
+    values:
+      - 127.0.0.1
